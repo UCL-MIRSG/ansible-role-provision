@@ -1,2 +1,6 @@
 ---
-# tasks file for ansible-role-provision
+- name: "Update packages"
+  include: package_update.yml
+
+- name: "Set locale"
+  include: locale.yml
