@@ -1,24 +1,4 @@
 ---
-ansible_cache_dir: "{{ lookup('env', 'HOME') }}/ansible_persistent_files"
-
 postgresql_rpm_gpg_key_pgdg: "https://www.postgresql.org/download/keys/RPM-GPG-KEY-PGDG"  # not needed for CentOS 7
-postgresql_use_ssl: true
-selinux_enabled: false
 
-db_hostname: "db.local"
-web_hostname: "web.local"
-
-database_server_certificate_cache_filename: "{{ ansible_cache_dir }}/pg_certificates/{{ db_hostname }}.postgresql_server.crt"
-database_client_certificate_cache_filename: "{{ ansible_cache_dir }}/pg_certificates/{{ db_hostname }}.postgresql_client.crt"
-
-web_vm:
-  hostname: "{{ web_hostname }}"
-  url: "https://{{ web_hostname }}"
-  ip: "192.168.56.10"
-
-db_vm:
-  hostname: "{{ db_hostname }}"
-  port: 5432
-  database_name: "database"
-  database_user: "user"
-  database_password: "password"
+server_locale: "en_GB.UTF-8"
