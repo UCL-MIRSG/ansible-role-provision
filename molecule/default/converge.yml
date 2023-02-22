@@ -4,4 +4,4 @@
   tasks:
     - name: "Include ansible-role-provision"
       ansible.builtin.include_role:
-        name: "ansible-role-provision"
+        name: "mirsg.provision"
