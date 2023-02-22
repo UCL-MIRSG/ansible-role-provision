@@ -1,2 +1,14 @@
 ---
-# tasks file for ansible-role-provision
+- name: "Set up for specific distribution"
+  ansible.builtin.include_tasks: "{{ansible_distribution}}.yml"
+
+- name: Upgrade all packages # noqa package-latest
+  ansible.builtin.yum:
+    name: "*"
+    state: latest
+
+- name: Ensure epel is installed
+  become: true
+  ansible.builtin.yum:
+    name: "epel-release"
+    state: installed
