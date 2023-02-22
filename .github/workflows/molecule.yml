@@ -11,33 +11,14 @@ defaults:
     working-directory: "mirsg.provision"
 
 jobs:
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out the codebase
-        uses: actions/checkout@v3
-        with:
-          path: "mirsg.provision"
-      - name: Set up Python 3
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.x"
-      - name: Install lint dependencies
-        run: pip3 install yamllint
-      - name: Lint code
-        run: |
-          yamllint .
-
   molecule:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
       matrix:
-        molecule_docker_image:
-          - rockylinux:8
-          - geerlingguy/docker-centos7-ansible:latest
-
+        scenario:
+          - centos7
+          - rocky8
     steps:
       - name: Check out the codebase
         uses: actions/checkout@v3
@@ -54,8 +35,7 @@ jobs:
           python3 -m pip install -r requirements.txt
       - name: Test with molecule
         run: |
-          molecule test
+          molecule test --scenario-name ${{ matrix.scenario }}
         env:
           PY_COLORS: "1"
           ANSIBLE_FORCE_COLOR: "1"
-          MOLECULE_DOCKER_IMAGE: ${{ matrix.molecule_docker_image }}
