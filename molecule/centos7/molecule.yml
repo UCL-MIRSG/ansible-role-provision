@@ -28,7 +28,6 @@ provisioner:
   inventory:
     links:
       group_vars: ../resources/inventory/group_vars/
-      host_vars: ../resources/inventory/host_vars/
   playbooks:
     prepare: ../resources/prepare.yml
     converge: ../resources/converge.yml
