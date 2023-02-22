@@ -1,6 +1,14 @@
 ---
-- name: "Update packages"
-  ansible.builtin.include_tasks: package_update.yml
+- name: "Set up for specific distribution"
+  ansible.builtin.include_tasks: "{{ansible_distribution}}.yml"
 
-- name: "Set locale"
-  ansible.builtin.include_tasks: locale.yml
+- name: Upgrade all packages # noqa package-latest
+  ansible.builtin.yum:
+    name: "*"
+    state: latest
+
+- name: Ensure epel is installed
+  become: true
+  ansible.builtin.yum:
+    name: "epel-release"
+    state: installed

@@ -7,7 +7,6 @@
     value: http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os
     backup: true
     mode: 0644
-  when: ansible_facts['distribution'] == "CentOS"
 
 - name: Ensure updates mirrorlist is in repository file (CentOS)
   community.general.ini_file:
@@ -17,15 +16,15 @@
     value: http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates
     backup: true
     mode: 0644
-  when: ansible_facts['distribution'] == "CentOS"
 
-- name: Upgrade all packages # noqa package-latest
-  ansible.builtin.yum:
-    name: "*"
-    state: latest
+- name: Check if locale already set
+  ansible.builtin.shell: |
+    set -o pipefail
+    localectl status | grep -i {{ server_locale | quote }}
+  register: found_locale
+  changed_when: false
+  failed_when: false
 
-- name: Ensure epel is installed
-  become: true
-  ansible.builtin.yum:
-    name: "epel-release"
-    state: installed
+- name: Set locale # noqa: no-changed-when
+  ansible.builtin.command: "localectl set-locale LANG={{ server_locale | quote }}"
+  when: found_locale.rc != 0
