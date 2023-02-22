@@ -1,31 +1,36 @@
 # Role Name
 
-A brief description of the role goes here.
+This role sets up for a specific distribution for CentOS (mirrorlist and locale) or Rocky8 (disable postgres), upgrades all packages and ensures epel is installed.
 
 ## Requirements
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+If you would like to run Ansible Molecule to test this role, the requirements are in [`requirements.txt`](https://github.com/UCL-MIRSG/ansible-role-install-python/blob/main/requirements.txt).
 
 ## Role Variables
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+`postgresql_rpm_gpg_key_pgdg`: the postgresql key. This is not needed for CentOS 7.
+
+`server_locale`: the sets the user's language, region, etc. This is set to "en_GB.UTF-8"
 
 ## Dependencies
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+There are no Ansible-Galaxy dependencies for this role.
 
 ## Example Playbook
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+This role will perform provision tasks on a managed host. To use this role, add it to the list of roles in a play:
 
-    - hosts: servers
+```yaml
+    - name: Provision
+      hosts: all
       roles:
-         - { role: username.rolename, x: 42 }
+         - mirsg.provision
+```
 
 ## License
 
-BSD
+[BSD 3-Clause License](https://github.com/UCL-MIRSG/ansible-role-install-python/blob/main/LICENSE).
 
 ## Author Information
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+This role was created by the [Medical Imaging Research Software Group](https://www.ucl.ac.uk/advanced-research-computing/expertise/research-software-development/medical-imaging-research-software-group) at [UCL](https://www.ucl.ac.uk/).
