@@ -6,7 +6,7 @@ driver:
 platforms:
   - name: instance
     image: ${MOLECULE_DOCKER_IMAGE:-geerlingguy/docker-centos7-ansible:latest}
-    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    command: ${MOLECULE_DOCKER_COMMAND:-"/usr/sbind/init"}
     privileged: true
     cgroupns_mode: host
     pre_build_image: true
