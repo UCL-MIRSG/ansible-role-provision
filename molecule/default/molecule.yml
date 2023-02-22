@@ -5,9 +5,26 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: docker.io/pycontribs/centos:7
+    image: ${MOLECULE_DOCKER_IMAGE:-geerlingguy/docker-centos7-ansible:latest}
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    privileged: true
+    cgroupns_mode: host
     pre_build_image: true
+
 provisioner:
   name: ansible
+  config_options:
+    defaults:
+      callbacks_enabled: profile_tasks, timer, yaml
+  env:
+    ANSIBLE_VERBOSITY: "1"
+
 verifier:
   name: ansible
+  env:
+    ANSIBLE_VERBOSITY: "1"
+
+lint: |
+  set -e
+  yamllint .
+  ansible-lint .
