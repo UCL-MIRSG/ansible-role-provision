@@ -1,4 +1,4 @@
-# Role Name
+# Ansible Role: mirsg.provision
 
 This role sets up for a specific distribution for CentOS (mirrorlist and locale) or Rocky8 (disable postgres), upgrades all packages and ensures epel is installed.
 
