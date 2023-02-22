@@ -4,6 +4,6 @@
   become: true
   gather_facts: true
   tasks:
-    - name: Create and setup a postgresql database
+    - name: "Include ansible-role-provision"
       ansible.builtin.include_role:
-        name: "mirsg.postgresql"
+        name: "mirsg.provision"
