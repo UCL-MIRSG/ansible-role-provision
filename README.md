@@ -12,6 +12,8 @@ If you would like to run Ansible Molecule to test this role, the requirements ar
 
 `server_locale`: the sets the user's language, region, etc. This is set to "en_GB.UTF-8"
 
+`EXTERNAL_STORAGE_DRIVE`: This is set to "/storage"
+
 ## Dependencies
 
 There are no Ansible-Galaxy dependencies for this role.
@@ -21,10 +23,10 @@ There are no Ansible-Galaxy dependencies for this role.
 This role will perform provision tasks on a managed host. To use this role, add it to the list of roles in a play:
 
 ```yaml
-    - name: Provision
-      hosts: all
-      roles:
-         - mirsg.provision
+- name: Provision
+  hosts: all
+  roles:
+    - mirsg.provision
 ```
 
 ## License

@@ -12,3 +12,11 @@
   ansible.builtin.yum:
     name: "epel-release"
     state: installed
+
+- name: Check external storage permissions
+  ansible.builtin.file:
+    path: "{{ EXTERNAL_STORAGE_DRIVE }}"
+    owner: root
+    group: root
+    mode: "0755"
+  when: EXTERNAL_STORAGE_DRIVE is defined

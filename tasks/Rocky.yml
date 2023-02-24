@@ -1,4 +1,10 @@
 ---
+- name: Install the ca-certificates package
+  become: true
+  ansible.builtin.yum:
+    name: "ca-certificates"
+    state: present
+
 - name: Disable default Postgres module # noqa command-instead-of-module
   ansible.builtin.command: yum module disable -y postgresql
   register: disable_postgresql_module
