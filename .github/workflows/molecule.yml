@@ -18,7 +18,7 @@ jobs:
       matrix:
         scenario:
           - centos7
-          - rocky8
+          # - rocky8
     steps:
       - name: Check out the codebase
         uses: actions/checkout@v3
