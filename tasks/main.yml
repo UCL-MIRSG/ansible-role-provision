@@ -5,7 +5,7 @@
   when: EXTERNAL_STORAGE_DRIVE is defined
 
 - name: "Set up for specific distribution"
-  ansible.builtin.include_tasks: "{{ansible_distribution}}.yml"
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
 
 - name: Upgrade all packages # noqa package-latest
   ansible.builtin.yum:
@@ -17,11 +17,3 @@
   ansible.builtin.yum:
     name: "epel-release"
     state: installed
-
-- name: Check external storage permissions
-  ansible.builtin.file:
-    path: "{{ EXTERNAL_STORAGE_DRIVE }}"
-    owner: root
-    group: root
-    mode: "0755"
-  when: EXTERNAL_STORAGE_DRIVE is defined
