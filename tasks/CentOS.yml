@@ -25,6 +25,20 @@
   changed_when: false
   failed_when: false
 
-- name: Set locale # noqa: no-changed-when
-  ansible.builtin.command: "localectl set-locale LANG={{ server_locale | quote }}"
+- name: Install and set locale
   when: found_locale.rc != 0
+  block:
+    - name: Allow install of other locales
+      ansible.builtin.lineinfile:
+        path: /etc/yum.conf
+        search_string: "override_install_langs=en_US.utf8"
+        state: absent
+
+    - name: Install locales # noqa: package-latest
+      ansible.builtin.yum:
+        name: glibc-common
+        state: latest
+
+    - name: Set locale
+      ansible.builtin.command: "localectl set-locale LANG={{ server_locale | quote }}"
+      changed_when: false
