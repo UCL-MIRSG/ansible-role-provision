@@ -29,7 +29,6 @@ provisioner:
     links:
       group_vars: ../resources/inventory/group_vars/
   playbooks:
-    prepare: ../resources/prepare.yml
     converge: ../resources/converge.yml
   env:
     ANSIBLE_VERBOSITY: "1"
