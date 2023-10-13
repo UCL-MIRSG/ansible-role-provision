@@ -28,7 +28,7 @@
 - name: Install and set locale
   when: found_locale.rc != 0
   block:
-    - name: Allow install of other locals
+    - name: Allow install of other locales
       ansible.builtin.lineinfile:
         path: /etc/yum.conf
         search_string: "override_install_langs=en_US.utf8"
