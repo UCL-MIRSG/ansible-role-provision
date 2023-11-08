@@ -11,6 +11,8 @@
   ansible.builtin.yum:
     name: "*"
     state: latest
+  tags:
+    - molecule-idempotence-notest
 
 - name: Ensure epel is installed
   become: true
